@@ -2,49 +2,70 @@
 
 var dispatcher = require('httpdispatcher');
 var fs = require("fs");
-var db = require('./db.js');
-//need to make a file to save info from post requests
-//use fs.write (or fs.writefile) to append the file when necessary
+//var db = require('./db.js');
+
+
+var db = [
+
+  {
+    createdAt: 4324232,
+    text: "string blah blah blah",
+    username: "string",
+    roomname: "roomname"
+  },
+
+  {
+    createdAt: 4324232,
+    text: "second string!!!",
+    username: "this is from object #2",
+    roomname: "roomname"
+  }
+
+]
+
 
 var requestHandler = function(request, response) {
 
-  var statusCode = 200;
-
-  // See the note below about CORS headers.
-  var headers = defaultCorsHeaders;
-
   console.log("Serving request type " + request.method + " for url " + request.url);
 
-  // The outgoing status.
   var statusCode = 200;
 
-  // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
 
-  // Tell the client we are sending them plain text.
-  //
-  // You will need to change this if you are sending something
-  // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = "text/plain";
+  headers['Content-Type'] = "plain/text";
 
-  if( request.method === 'POST'){
-    fs.appendFile('db.js', 'NEW data to append', function(){
-    })
 
+  if( request.method === 'OPTIONS'){
+    response.writeHead(statusCode, headers);
     response.end();
   }
 
+  if(request.method === 'POST'){
+    response.writeHead(statusCode, headers);
 
-  if(request.method === 'GET'){
-    //if (request.url === '/'){
-      response.writeHead(statusCode, headers);
+    var accumulatedData = [];
 
-      var obj = {createdAt: 4324232,text: "string blah blah blah",username: "string",roomname: "roomname"};
-      console.log(obj);
-      response.end(JSON.stringify(obj));
-    //}
+    request.on('data', function(chunk){
+      accumulatedData.push(chunk)
+    }).on('end', function(){
+      accumulatedData = Buffer.concat(accumulatedData).toString();
+      db.push(JSON.parse(accumulatedData));
+      console.log(db);
+    })
+
+    response.end();
+
   }
 
+  if(request.method === 'GET'){
+
+      response.writeHead(statusCode, headers);
+
+      var obj = {results:db}
+
+      response.end(JSON.stringify(obj));
+
+  }
 
 };
 
@@ -57,3 +78,4 @@ var defaultCorsHeaders = {
 };
 
 exports.requestHandler = requestHandler;
+exports.defaultCorsHeaders = defaultCorsHeaders;

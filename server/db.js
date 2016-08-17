@@ -1,3 +1,5 @@
+var requestHandler = require('./request-handler.js');
+
 var db = [
 
 {
@@ -7,7 +9,22 @@ var db = [
   roomname: "roomname"
 },
 
+{
+  createdAt: 4324232,
+  text: "second string!!!",
+  username: "this is from object #2",
+  roomname: "roomname"
+}
 
 ]
 
-exports.db = db;
+exports.db = db
+
+
+
+
+
+
+
+
+

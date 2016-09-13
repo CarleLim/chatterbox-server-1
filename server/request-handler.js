@@ -1,9 +1,5 @@
-
-
 var dispatcher = require('httpdispatcher');
 var fs = require("fs");
-//var db = require('./db.js');
-
 
 var db = [
 

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Londrina+Solid' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- dependencies -->
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="https://use.fontawesome.com/1e7ad219dc.js"></script>
+
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo" class="clearfix">
+        <h1>chatterbox</h1>
+        <img src="images/false-teeth.png" alt="">
+      </div>
+      <nav>
+        <ul class="clearfix">
+          <li>
+            <form>
+              <div class="selectParent">
+                <select id="roomSelect">
+                  <option value="Select">Select Room</option>
+                </select>
+              </div>
+            </form>
+          </li>
+          <li id="addRoomLi">
+            Add Room
+            <div id="addRoom">
+              <form id="addNewRoom">
+                <input name="newRoom" type="text">
+                <input type="submit" value="Add Room">
+              </form>
+            </div>
+          </li>
+        </ul>
+
+      </nav>
+    </header>
+    <div id="main">
+      <h2 class="roomTitle"></h2>
+      <div id="chats"></div>
+
+      <div  class="userInput clearfix">
+        <form id="send">
+          <input id="message" name="message" type="text">
+          <input class="submit" type="submit" value="Send">
+        </form>
+      </div>
+    </div>
+    <!-- your scripts -->
+    <script src="scripts/app.js"></script>
+  </body>
+</html>

@@ -2,8 +2,6 @@ var handler = require('../request-handler');
 var expect = require('../../node_modules/chai/chai').expect;
 var stubs = require('./Stubs');
 
-// Conditional async testing, akin to Jasmine's waitsFor()
-// Will wait for test to be truthy before executing callback
 function waitForThen(test, cb) {
   setTimeout(function() {
     test() ? cb.apply(this) : waitForThen(test, cb);
@@ -12,8 +10,6 @@ function waitForThen(test, cb) {
 
 describe('Node Server Request Listener Function', function() {
   it('Should answer GET requests for /classes/room with a 200 status code', function() {
-    // This is a fake server request. Normally, the server would provide this,
-    // but we want to test our function's behavior totally independent of the server code
     var req = new stubs.request('/classes/room1', 'GET');
     var res = new stubs.response();
 
@@ -69,9 +65,6 @@ describe('Node Server Request Listener Function', function() {
     // Expect 201 Created response status
     expect(res._responseCode).to.equal(201);
 
-    // Testing for a newline isn't a valid test
-    // TODO: Replace with with a valid test
-    // expect(res._data).to.equal(JSON.stringify('\n'));
     expect(res._ended).to.equal(true);
   });
 
@@ -87,7 +80,6 @@ it('Should respond with messages that were previously posted', function() {
 
     expect(res._responseCode).to.equal(201);
 
-    // Now if we request the log for that room the message we posted should be there:
     req = new stubs.request('/classes/room1', 'GET');
     res = new stubs.response();
 
@@ -108,7 +100,6 @@ it('Should respond with messages that were previously posted', function() {
 
     handler.requestHandler(req, res);
 
-    // Wait for response to return and then check status code
     waitForThen(
       function() { return res._ended; },
       function() {

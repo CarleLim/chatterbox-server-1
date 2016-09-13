@@ -1,6 +1,5 @@
 var requestHandler = require('./request-handler.js');
 
-/* Import node's http module: */
 var http = require("http");
 var url = require('url');
 
@@ -35,8 +34,3 @@ var server = http.createServer(function(req, res){
 console.log("Listening on http://" + ip + ":" + port);
 
 server.listen(port, ip);
-
-// To connect to the server, load http://127.0.0.1:3000 in your web
-// browser.
-
-
